@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+</head>
+<body>
+    <h1>Calendar</h1>
+    <a href="{{ url_for('add_event') }}">Add Event</a>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.title }} on {{ event.date }} - {{ event.description }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Objective</title>
+</head>
+<body>
+    <h1>Add Objective</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div>{{ form.title.label }} {{ form.title(size=20) }}</div>
+        <div>{{ form.description.label }} {{ form.description() }}</div>
+        <div>{{ form.target_date.label }} {{ form.target_date() }}</div>
+        <div>{{ form.current_progress.label }} {{ form.current_progress() }}</div>
+        <div><input type="submit" value="Add Objective"></div>
+    </form>
+</body>
+</html>
