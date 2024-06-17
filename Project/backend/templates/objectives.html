@@ -10,7 +10,12 @@
     <a href="{{ url_for('add_objective') }}">Add Objective</a>
     <ul>
         {% for objective in objectives %}
-            <li>{{ objective.title }} - Progress: {{ objective.current_progress }}% - {{ objective.description }}</li>
+            <li>
+                <form method="POST" action="{{ url_for('mark_complete', objective_id=objective.id) }}">
+                    {{ objective.title }} - Progress: {{ objective.current_progress }}% - {{ objective.description }}
+                    <input type="checkbox" name="completed" {% if objective.completed %}checked{% endif %} onChange="this.form.submit()">
+                </form>
+            </li>
         {% endfor %}
     </ul>
 </body>

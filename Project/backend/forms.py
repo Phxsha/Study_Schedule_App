@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, DateField, FloatField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from backend.models import User
 
 class RegistrationForm(FlaskForm):
@@ -36,5 +36,6 @@ class StudyObjectiveForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description')
     target_date = DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired()])
-    current_progress = FloatField('Current Progress', validators=[DataRequired()])
+    current_progress = FloatField('Current Progress', validators=[DataRequired(), NumberRange(min=0, max=100, message="Please enter a percentage between 0 and 100.")])
+    completed = BooleanField('Completed')
     submit = SubmitField('Add Objective')

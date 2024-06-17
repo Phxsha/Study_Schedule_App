@@ -29,6 +29,7 @@ class StudyObjective(db.Model):
     description = db.Column(db.Text, nullable=True)
     target_date = db.Column(db.DateTime, nullable=False)
     current_progress = db.Column(db.Float, nullable=False, default=0.0)
+    completed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Achievement(db.Model):

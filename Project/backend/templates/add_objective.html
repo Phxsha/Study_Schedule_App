@@ -12,7 +12,14 @@
         <div>{{ form.title.label }} {{ form.title(size=20) }}</div>
         <div>{{ form.description.label }} {{ form.description() }}</div>
         <div>{{ form.target_date.label }} {{ form.target_date() }}</div>
-        <div>{{ form.current_progress.label }} {{ form.current_progress() }}</div>
+        <div>
+            {{ form.current_progress.label }} 
+            {{ form.current_progress() }}
+            {% if form.current_progress.errors %}
+                <span style="color: red;">{{ form.current_progress.errors[0] }}</span>
+            {% endif %}
+        </div>
+        <div>{{ form.completed.label }} {{ form.completed() }}</div>
         <div><input type="submit" value="Add Objective"></div>
     </form>
 </body>

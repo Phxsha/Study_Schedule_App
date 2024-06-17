@@ -72,15 +72,36 @@ def objectives():
 def add_objective():
     form = StudyObjectiveForm()
     if form.validate_on_submit():
-        objective = StudyObjective(title=form.title.data, description=form.description.data, target_date=form.target_date.data, current_progress=form.current_progress.data, user_id=current_user.id)
-        db.session.add(objective)
-        db.session.commit()
-        flash('Objective has been added!', 'success')
-        return redirect(url_for('objectives'))
+        try:
+            objective = StudyObjective(
+                title=form.title.data,
+                description=form.description.data,
+                target_date=form.target_date.data,
+                current_progress=form.current_progress.data,
+                user_id=current_user.id
+            )
+            db.session.add(objective)
+            db.session.commit()
+            flash('Objective has been added!', 'success')
+            return redirect(url_for('objectives'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error adding objective: {e}', 'danger')
     return render_template('add_objective.html', title='Add Objective', form=form)
+
 
 @app.route("/achievements")
 @login_required
 def achievements():
-    achievements = Achievement.query.filter_by(user_id=current_user.id).all()
+    achievements = StudyObjective.query.filter_by(user_id=current_user.id, completed=True).all()
     return render_template('achievements.html', achievements=achievements)
+
+@app.route("/mark_complete/<int:objective_id>", methods=['POST'])
+@login_required
+def mark_complete(objective_id):
+    objective = StudyObjective.query.get_or_404(objective_id)
+    if objective.user_id != current_user.id:
+        abort(403)
+    objective.completed = 'completed' in request.form
+    db.session.commit()
+    return redirect(url_for('objectives'))
