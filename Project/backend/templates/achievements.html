@@ -9,7 +9,7 @@
     <h1>Achievements</h1>
     <ul>
         {% for achievement in achievements %}
-            <li>{{ achievement.objective_id }} achieved on {{ achievement.date_achieved }}</li>
+            <li>{{ achievement.objective.title }} achieved on {{ achievement.date_achieved.strftime('%Y-%m-%d') }}</li>
         {% endfor %}
     </ul>
 </body>

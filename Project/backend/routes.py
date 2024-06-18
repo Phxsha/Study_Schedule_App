@@ -1,8 +1,9 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from backend import app, db, bcrypt
 from backend.forms import RegistrationForm, LoginForm, CalendarEventForm, StudyObjectiveForm
 from backend.models import User, CalendarEvent, StudyObjective, Achievement
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
 
 @app.route("/")
 @app.route("/home")
@@ -89,11 +90,10 @@ def add_objective():
             flash(f'Error adding objective: {e}', 'danger')
     return render_template('add_objective.html', title='Add Objective', form=form)
 
-
 @app.route("/achievements")
 @login_required
 def achievements():
-    achievements = StudyObjective.query.filter_by(user_id=current_user.id, completed=True).all()
+    achievements = Achievement.query.filter_by(user_id=current_user.id).all()
     return render_template('achievements.html', achievements=achievements)
 
 @app.route("/mark_complete/<int:objective_id>", methods=['POST'])
@@ -103,5 +103,9 @@ def mark_complete(objective_id):
     if objective.user_id != current_user.id:
         abort(403)
     objective.completed = 'completed' in request.form
+    if objective.completed:
+        # Create an achievement entry
+        achievement = Achievement(objective_id=objective.id, user_id=current_user.id, date_achieved=datetime.utcnow())
+        db.session.add(achievement)
     db.session.commit()
     return redirect(url_for('objectives'))
