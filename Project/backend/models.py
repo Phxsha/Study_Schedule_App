@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     events = db.relationship('CalendarEvent', backref='author', lazy=True)
     objectives = db.relationship('StudyObjective', backref='author', lazy=True)
-    achievements = db.relationship('Achievement', backref='author', lazy=True)
+    achievements = db.relationship('Achievement', backref='author', lazy=True, cascade="all, delete-orphan")
 
 class CalendarEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,11 +31,10 @@ class StudyObjective(db.Model):
     current_progress = db.Column(db.Float, nullable=False, default=0.0)
     completed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    achievements = db.relationship('Achievement', backref='objective', lazy=True)  # Removed duplicated relationship
+    achievements = db.relationship('Achievement', backref='objective', lazy=True, cascade="all, delete-orphan")
 
 class Achievement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     objective_id = db.Column(db.Integer, db.ForeignKey('study_objective.id'), nullable=False)
     date_achieved = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # Removed duplicated relationship

@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Calendar</h1>
     <a href="{{ url_for('add_event') }}">Add Event</a>
     <ul>
         {% for event in events %}
-            <li>{{ event.title }} on {{ event.date }} - {{ event.description }}</li>
+            <li>
+                {{ event.title }} on {{ event.date }} - {{ event.description }}
+                <a href="{{ url_for('update_event', event_id=event.id) }}">Edit</a>
+                <form method="POST" action="{{ url_for('delete_event', event_id=event.id) }}" style="display: inline;">
+                    <input type="submit" value="Delete">
+                </form>
+            </li>
         {% endfor %}
     </ul>
 </body>

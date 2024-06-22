@@ -1,0 +1,38 @@
+body {
+    background-color: #EBC2D5;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 2em;
+    color: #628BFF; /* Sky blue color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+label {
+    font-weight: bold;
+}
+
+form div {
+    margin-bottom: 1em;
+}
+
+input[type="submit"] {
+    background-color: #628BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #628BFF;
+}
+
+a {
+    color: #628BFF;
+}
+
+a:hover {
+    color: #628BFF;
+}

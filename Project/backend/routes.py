@@ -109,3 +109,80 @@ def mark_complete(objective_id):
         db.session.add(achievement)
     db.session.commit()
     return redirect(url_for('objectives'))
+
+@app.route("/objective/<int:objective_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_objective(objective_id):
+    objective = StudyObjective.query.get_or_404(objective_id)
+    if objective.user_id != current_user.id:
+        abort(403)
+    form = StudyObjectiveForm()
+    if form.validate_on_submit():
+        objective.title = form.title.data
+        objective.description = form.description.data
+        objective.target_date = form.target_date.data
+        objective.current_progress = form.current_progress.data
+        objective.completed = form.completed.data
+        if objective.completed:
+            if not Achievement.query.filter_by(objective_id=objective.id).first():
+                achievement = Achievement(objective_id=objective.id, user_id=current_user.id, date_achieved=datetime.utcnow())
+                db.session.add(achievement)
+        else:
+            achievement = Achievement.query.filter_by(objective_id=objective.id).first()
+            if achievement:
+                db.session.delete(achievement)
+        db.session.commit()
+        flash('Your objective has been updated!', 'success')
+        return redirect(url_for('objectives'))
+    elif request.method == 'GET':
+        form.title.data = objective.title
+        form.description.data = objective.description
+        form.target_date.data = objective.target_date
+        form.current_progress.data = objective.current_progress
+        form.completed.data = objective.completed
+    return render_template('add_objective.html', title='Update Objective', form=form, legend='Update Objective')
+
+@app.route("/objective/<int:objective_id>/delete", methods=['POST'])
+@login_required
+def delete_objective(objective_id):
+    objective = StudyObjective.query.get_or_404(objective_id)
+    if objective.user_id != current_user.id:
+        abort(403)
+    achievement = Achievement.query.filter_by(objective_id=objective.id).first()
+    if achievement:
+        db.session.delete(achievement)
+    db.session.delete(objective)
+    db.session.commit()
+    flash('Your objective has been deleted!', 'success')
+    return redirect(url_for('objectives'))
+
+@app.route("/event/<int:event_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_event(event_id):
+    event = CalendarEvent.query.get_or_404(event_id)
+    if event.user_id != current_user.id:
+        abort(403)
+    form = CalendarEventForm()
+    if form.validate_on_submit():
+        event.title = form.title.data
+        event.date = form.date.data
+        event.description = form.description.data
+        db.session.commit()
+        flash('Your event has been updated!', 'success')
+        return redirect(url_for('calendar'))
+    elif request.method == 'GET':
+        form.title.data = event.title
+        form.date.data = event.date
+        form.description.data = event.description
+    return render_template('add_event.html', title='Update Event', form=form, legend='Update Event')
+
+@app.route("/event/<int:event_id>/delete", methods=['POST'])
+@login_required
+def delete_event(event_id):
+    event = CalendarEvent.query.get_or_404(event_id)
+    if event.user_id != current_user.id:
+        abort(403)
+    db.session.delete(event)
+    db.session.commit()
+    flash('Your event has been deleted!', 'success')
+    return redirect(url_for('calendar'))
