@@ -3,6 +3,20 @@ body {
     font-family: Arial, sans-serif;
 }
 
+header {
+    padding: 10px 20px;
+    background-color: #EBC2D5; /* White background for header */
+    border-bottom: 1px solid #DDD; /* Light grey border */
+}
+
+.app-title {
+    font-size: 2.5em;
+    color: #000000; /* Black color */
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
 h1 {
     font-size: 2em;
     color: #628BFF; /* Sky blue color */
@@ -26,7 +40,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #628BFF;
+    background-color: #4A6ED1;
 }
 
 a {
@@ -34,5 +48,9 @@ a {
 }
 
 a:hover {
-    color: #628BFF;
+    color: #4A6ED1;
+}
+
+.content {
+    padding: 20px;
 }

@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objectives</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <h1>Objectives</h1>
-    <a href="{{ url_for('add_objective') }}">Add Objective</a>
-    <ul>
-        {% for objective in objectives %}
-            <li>
-                <form method="POST" action="{{ url_for('mark_complete', objective_id=objective.id) }}">
-                    {{ objective.title }} - Progress: {{ objective.current_progress }}% - {{ objective.description }}
-                    <input type="checkbox" name="completed" {% if objective.completed %}checked{% endif %} onChange="this.form.submit()">
-                </form>
-                <a href="{{ url_for('update_objective', objective_id=objective.id) }}">Edit</a>
-                <form method="POST" action="{{ url_for('delete_objective', objective_id=objective.id) }}" style="display: inline;">
-                    <input type="submit" value="Delete">
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Objectives{% endblock %}
+
+{% block content %}
+<h1>Objectives</h1>
+<a href="{{ url_for('add_objective') }}">Add Objective</a>
+<ul>
+    {% for objective in objectives %}
+        <li>
+            <form method="POST" action="{{ url_for('mark_complete', objective_id=objective.id) }}">
+                {{ objective.title }} - Progress: {{ objective.current_progress }}% - {{ objective.description }}
+                <input type="checkbox" name="completed" {% if objective.completed %}checked{% endif %} onChange="this.form.submit()">
+            </form>
+            <a href="{{ url_for('update_objective', objective_id=objective.id) }}">Edit</a>
+            <form method="POST" action="{{ url_for('delete_objective', objective_id=objective.id) }}" style="display: inline;">
+                <input type="submit" value="Delete">
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
