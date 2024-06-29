@@ -4,67 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Schedule App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            background-color: #628BFF;
-            color: white;
-            width: 100%;
-            padding: 1em 0;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-        }
-        main {
-            max-width: 800px;
-            margin: 2em;
-            padding: 2em;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            line-height: 1.6;
-            color: #666;
-        }
-        .links a {
-            display: inline-block;
-            margin: 1em 0.5em;
-            padding: 0.5em 1em;
-            background-color: #628BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .links a:hover {
-            background-color: #4a6ed9;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>Study Schedule App</header>
-    <main>
-        <h1>Welcome to the Study Schedule App</h1>
-        <p>The Study Schedule App is designed to help you manage your study sessions, track your objectives, and achieve your academic goals effectively.</p>
-        <h2>About the Developer</h2>
-        <p>Hi, I'm Teboho Phasha, the developer of the Study Schedule App. I am passionate about creating useful and efficient tools to help students maximize their productivity and succeed in their studies.</p>
-        <div class="links">
-            <a href="https://github.com/Phxsha/Study_Schedule_App" target="_blank">View on GitHub</a>
-            <a href="/home.html" target="_blank">Use the App</a>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Study Schedule App</h1>
+            <p>Organize and Structuralize your Study Needs with Ease</p>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="https://phxsha.github.io/Study_Schedule_App/">Go to App</a></li>
+                </ul>
+            </nav>
         </div>
-    </main>
+    </header>
+
+    <!-- Cover Image -->
+    <section class="cover-image">
+        <img src="cover-image.jpg" alt="Cover Image">
+    </section>
+
+    <!-- Feature Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="feature">
+                <img src="screenshot-login.png" alt="Login Feature">
+                <h3>Login Feature</h3>
+                <p>Secure and easy login system to keep your data safe and accessible only to you.</p>
+            </div>
+            <div class="feature">
+                <img src="screenshot-objectives.png" alt="Objectives Feature">
+                <h3>Objectives Feature</h3>
+                <p>Manage and track your study objectives effectively with our intuitive interface.</p>
+            </div>
+            <div class="feature">
+                <img src="feature-placeholder.png" alt="Feature Image">
+                <h3>Calendar Feature</h3>
+                <p>Organize your study schedule and never miss a deadline with our integrated calendar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About</h2>
+            <p>The Study Schedule App was inspired by the need for a structured and easy-to-use platform to manage study schedules and objectives. As a student, I often found it challenging to keep track of all my assignments, projects, and deadlines. This app was created to solve that problem and help others like me stay organized and focused on their studies.</p>
+            <p>Connect with me:</p>
+            <ul>
+                <li><a href="https://www.linkedin.com/in/your-profile">LinkedIn</a></li>
+                <li><a href="https://github.com/Phxsha">GitHub</a></li>
+            </ul>
+            <p>Check out the <a href="https://github.com/Phxsha/Study_Schedule_App">GitHub repository</a> for this project.</p>
+        </div>
+    </section>
 </body>
 </html>
