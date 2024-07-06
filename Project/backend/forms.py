@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from backend.models import User
 
 class RegistrationForm(FlaskForm):
+    """Displays registration form"""
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -21,18 +22,21 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')
 
 class LoginForm(FlaskForm):
+    """Displays Login form"""
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 class CalendarEventForm(FlaskForm):
+    """Displays Calendar form"""
     title = StringField('Title', validators=[DataRequired()])
     date = DateField('Date', format='%Y-%m-%d', validators=[DataRequired()])
     description = TextAreaField('Description')
     submit = SubmitField('Add Event')
 
 class StudyObjectiveForm(FlaskForm):
+    """Displays objectives form"""
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description')
     target_date = DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired()])

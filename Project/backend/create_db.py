@@ -1,3 +1,4 @@
+"""Creates Database"""
 from backend import db, app
 
 with app.app_context():

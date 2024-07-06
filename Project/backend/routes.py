@@ -9,10 +9,12 @@ from datetime import datetime
 @app.route("/home")
 @login_required
 def home():
+    """Returns the home page"""
     return render_template('home.html')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    """Register page"""
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = RegistrationForm()
@@ -27,6 +29,7 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    """Login page"""
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
@@ -41,18 +44,21 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """Logout Page"""
     logout_user()
     return redirect(url_for('home'))
 
 @app.route("/calendar")
 @login_required
 def calendar():
+    """calendar page"""
     events = CalendarEvent.query.filter_by(user_id=current_user.id).all()
     return render_template('calendar.html', events=events)
 
 @app.route("/add_event", methods=['GET', 'POST'])
 @login_required
 def add_event():
+    """responsible for adding a calendar event"""
     form = CalendarEventForm()
     if form.validate_on_submit():
         event = CalendarEvent(title=form.title.data, date=form.date.data, description=form.description.data, user_id=current_user.id)
@@ -65,12 +71,14 @@ def add_event():
 @app.route("/objectives")
 @login_required
 def objectives():
+    """objectives page route"""
     objectives = StudyObjective.query.filter_by(user_id=current_user.id).all()
     return render_template('objectives.html', objectives=objectives)
 
 @app.route("/add_objective", methods=['GET', 'POST'])
 @login_required
 def add_objective():
+    """Adds a new objective"""
     form = StudyObjectiveForm()
     if form.validate_on_submit():
         try:
@@ -93,12 +101,14 @@ def add_objective():
 @app.route("/achievements")
 @login_required
 def achievements():
+    """achievements page"""
     achievements = Achievement.query.filter_by(user_id=current_user.id).all()
     return render_template('achievements.html', achievements=achievements)
 
 @app.route("/mark_complete/<int:objective_id>", methods=['POST'])
 @login_required
 def mark_complete(objective_id):
+    """Makes completed objectives reflect on the achievements"""
     objective = StudyObjective.query.get_or_404(objective_id)
     if objective.user_id != current_user.id:
         abort(403)
@@ -113,6 +123,7 @@ def mark_complete(objective_id):
 @app.route("/objective/<int:objective_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_objective(objective_id):
+    """Modify created objected"""
     objective = StudyObjective.query.get_or_404(objective_id)
     if objective.user_id != current_user.id:
         abort(403)
@@ -145,6 +156,7 @@ def update_objective(objective_id):
 @app.route("/objective/<int:objective_id>/delete", methods=['POST'])
 @login_required
 def delete_objective(objective_id):
+    """removes an objective"""
     objective = StudyObjective.query.get_or_404(objective_id)
     if objective.user_id != current_user.id:
         abort(403)
@@ -159,6 +171,7 @@ def delete_objective(objective_id):
 @app.route("/event/<int:event_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_event(event_id):
+    """modifies a calendar event"""
     event = CalendarEvent.query.get_or_404(event_id)
     if event.user_id != current_user.id:
         abort(403)
@@ -179,6 +192,7 @@ def update_event(event_id):
 @app.route("/event/<int:event_id>/delete", methods=['POST'])
 @login_required
 def delete_event(event_id):
+    """removes a calendar event"""
     event = CalendarEvent.query.get_or_404(event_id)
     if event.user_id != current_user.id:
         abort(403)

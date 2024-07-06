@@ -4,9 +4,12 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def load_user(user_id):
+    """loads user information"""
     return User.query.get(int(user_id))
 
 class User(db.Model, UserMixin):
+    """Creates a user database"""
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -17,6 +20,8 @@ class User(db.Model, UserMixin):
     achievements = db.relationship('Achievement', backref='author', lazy=True, cascade="all, delete-orphan")
 
 class CalendarEvent(db.Model):
+    """Creates calendar database"""
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
@@ -24,6 +29,8 @@ class CalendarEvent(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class StudyObjective(db.Model):
+    """Database for the objectives"""
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
@@ -34,6 +41,7 @@ class StudyObjective(db.Model):
     achievements = db.relationship('Achievement', backref='objective', lazy=True, cascade="all, delete-orphan")
 
 class Achievement(db.Model):
+    """Database for the returned achievements"""
     id = db.Column(db.Integer, primary_key=True)
     objective_id = db.Column(db.Integer, db.ForeignKey('study_objective.id'), nullable=False)
     date_achieved = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
