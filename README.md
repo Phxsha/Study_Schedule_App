@@ -1,6 +1,6 @@
 # Study Schedule App
 
-![Screenshot of Study Schedule App](screenshot-path.png)
+![Screenshot of Study Schedule App](study.png)
 
 ## Introduction
 
