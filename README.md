@@ -50,6 +50,6 @@ If you would like to contribute to the project, please fork the repository and s
 
 ## Licensing:
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the (LICENSE) file for details.
 
 This project was developed solo by Phxsha as a solution to the challenge of managing study and work schedules effectively. If you have any questions or feedback, feel free to reach out via GitHub or LinkedIn.
